@@ -31,7 +31,7 @@ public class SoftbanCommand implements TabExecutor {
 
     @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     private boolean isEnabled(CommandSender player) {
-        return Softban.plugin.isEnabled() && (player.isOp() || player.hasPermission("softban.admin"));
+        return Softban.plugin!=null && Softban.plugin.isEnabled() && (player.isOp() || player.hasPermission("softban.admin"));
     }
 
     private int parseLevel(final String sLevel) throws IllegalArgumentException {
