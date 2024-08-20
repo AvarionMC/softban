@@ -12,12 +12,10 @@ import java.util.Map;
 
 public class SoftbanDb {
     private final Map<String, Integer> softBanLevels = new HashMap<>();
-    private final Softban plugin;
     private final File fileName;
 
-    SoftbanDb(@NotNull Softban plugin) {
-        this.plugin = plugin;
-        this.fileName = new File(plugin.getDataFolder(), "offline_users.yml");
+    SoftbanDb() {
+        this.fileName = new File(Softban.plugin.getDataFolder(), "offline_users.yml");
 
         load_previous();
     }
@@ -37,13 +35,13 @@ public class SoftbanDb {
                     final int level = Integer.parseInt(entry.getValue().toString().trim());
 
                     if (level < 1 || level > 5) {
-                        plugin.getLogger().warning("Invalid level for user: " + username);
+                        Softban.plugin.getLogger().warning("Invalid level for user: " + username);
                     }
                     else {
                         softBanLevels.put(username, level);
                     }
                 } catch (IllegalArgumentException e) {
-                    plugin.getLogger().severe("Invalid data format for user: " + entry.getKey() + " with value: " + entry.getValue());
+                    Softban.plugin.getLogger().severe("Invalid data format for user: " + entry.getKey() + " with value: " + entry.getValue());
                 }
             }
         }
@@ -62,7 +60,7 @@ public class SoftbanDb {
         try {
             config.save(fileName);
         } catch (IOException e) {
-            plugin.getLogger().severe("Failed to save offline users.yml: " + e.getMessage());
+            Softban.plugin.getLogger().severe("Failed to save offline users.yml: " + e.getMessage());
         }
     }
 

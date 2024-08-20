@@ -47,10 +47,8 @@ The Softban plugin implements the following punishments based on the softban lev
 5. **XP Gain Reduction**: Reduces XP gained from activities.
 6. **Hunger Depletion**: Increases the rate of hunger depletion.
 7. **Item Durability Loss**: Increases damage to items when used.
-8. **Mob Aggression**: Forces mobs to target the punished player.
-9. **Chat Cooldown**: Implements a cooldown between chat messages.
-10. **Inventory Restrictions**: Blocks a number of inventory slots with barrier blocks.
-11. **Night Vision Impairment**: Applies blindness effect when sneaking.
+8. **Inventory Restrictions**: Blocks a number of inventory slots with barrier blocks.
+9. **Night Vision Impairment**: Applies blindness effect when sneaking.
 
 These punishments scale with the softban level, becoming more severe as the level increases.
 

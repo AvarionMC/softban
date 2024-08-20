@@ -1,30 +1,25 @@
 package org.avarion.softban;
 
 import org.bukkit.Bukkit;
-import org.bukkit.OfflinePlayer;
+import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.command.TabExecutor;
 import org.bukkit.entity.Player;
-import org.bukkit.persistence.PersistentDataContainer;
-import org.bukkit.persistence.PersistentDataType;
+import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class SoftbanCommand implements TabExecutor {
-    private final Softban plugin;
-
-    SoftbanCommand(@NotNull Softban plugin) {
-        this.plugin = plugin;
-
-        registerMyself(plugin);
+    SoftbanCommand() {
+        registerMyself();
     }
 
-    private void registerMyself(@NotNull Softban plugin) {
-        PluginCommand cmd = plugin.getCommand("softban");
+    private void registerMyself() {
+        PluginCommand cmd = Softban.plugin.getCommand("softban");
         if (cmd==null) {
             throw new RuntimeException("softban command not found");
         }
@@ -35,7 +30,7 @@ public class SoftbanCommand implements TabExecutor {
 
     @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     private boolean isEnabled(CommandSender player) {
-        return plugin.isEnabled() && (player.isOp() || player.hasPermission("softban.admin"));
+        return Softban.plugin.isEnabled() && (player.isOp() || player.hasPermission("softban.admin"));
     }
 
     private int parseLevel(final String sLevel) throws IllegalArgumentException {
@@ -64,7 +59,7 @@ public class SoftbanCommand implements TabExecutor {
             return false;
         }
 
-        if (plugin.handleOnlinePlayer(Bukkit.getPlayer(args[0]), level) || plugin.handleOfflinePlayer(args[0], level) ) {
+        if (Softban.plugin.handleOnlinePlayer(Bukkit.getPlayer(args[0]), level) || Softban.plugin.handleOfflinePlayer(args[0], level)) {
             sender.sendMessage("Soft ban level set to " + level + " for player " + args[0]);
             return true;
         }
@@ -92,4 +87,29 @@ public class SoftbanCommand implements TabExecutor {
         }
         return completions;
     }
+
+    public void updateInventoryRestrictions(Player player, int newLevel) {
+        int oldLevel = Utils.getSoftbanLevel(player);
+
+        // Remove old restrictions
+        if (oldLevel > 0) {
+            for (int i = 0; i < oldLevel * 2 && i < player.getInventory().getSize(); i++) {
+                ItemStack item = player.getInventory().getItem(i);
+                if (item!=null && item.getType()==Material.BARRIER) {
+                    player.getInventory().setItem(i, null);
+                }
+            }
+        }
+
+        // Apply new restrictions
+        if (newLevel > 0) {
+            int slotsToBlock = newLevel * 2;
+            for (int i = 0; i < slotsToBlock && i < player.getInventory().getSize(); i++) {
+                player.getInventory().setItem(i, new ItemStack(Material.BARRIER));
+            }
+        }
+
+        player.updateInventory();
+    }
+
 }

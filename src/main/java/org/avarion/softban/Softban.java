@@ -9,22 +9,25 @@ import org.bukkit.plugin.java.JavaPlugin;
 public final class Softban extends JavaPlugin {
     private NamespacedKey softBanLevelKey;
     private SoftbanDb db;
+    public static Softban plugin;
 
     @Override
     public void onEnable() {
+        plugin = this;
+
         softBanLevelKey = new NamespacedKey(this, "softBanLevel");
-        db = new SoftbanDb(this);
+        db = new SoftbanDb();
 
-        new SoftbanCommand(this);
-        new SoftbanEvents(this);
+        new SoftbanCommand();
+        new SoftbanEvents();
     }
 
-    public NamespacedKey getKey() {
-        return softBanLevelKey;
+    static NamespacedKey getKey() {
+        return plugin.softBanLevelKey;
     }
 
-    public SoftbanDb getDb() {
-        return db;
+    static SoftbanDb getDb() {
+        return plugin.db;
     }
 
     public boolean handleOnlinePlayer(Player player, Integer level) {
