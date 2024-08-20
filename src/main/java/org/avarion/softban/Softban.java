@@ -7,9 +7,17 @@ import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class Softban extends JavaPlugin {
+    public static Softban plugin;
     private NamespacedKey softBanLevelKey;
     private SoftbanDb db;
-    public static Softban plugin;
+
+    static NamespacedKey getKey() {
+        return plugin.softBanLevelKey;
+    }
+
+    static SoftbanDb getDb() {
+        return plugin.db;
+    }
 
     @Override
     public void onEnable() {
@@ -20,14 +28,6 @@ public final class Softban extends JavaPlugin {
 
         new SoftbanCommand();
         new SoftbanEvents();
-    }
-
-    static NamespacedKey getKey() {
-        return plugin.softBanLevelKey;
-    }
-
-    static SoftbanDb getDb() {
-        return plugin.db;
     }
 
     public boolean handleOnlinePlayer(Player player, Integer level) {
