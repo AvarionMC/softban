@@ -2,9 +2,6 @@ plugins {
     id 'java'
 }
 
-group = 'org.avarion'
-version = '1.0-SNAPSHOT'
-
 repositories {
     mavenCentral()
     maven {
@@ -45,6 +42,6 @@ processResources {
     inputs.properties props
     filteringCharset 'UTF-8'
     filesMatching('plugin.yml') {
-        expand props
+        expand(project.properties)
     }
 }

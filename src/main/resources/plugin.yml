@@ -1,6 +1,6 @@
-name: softban
-version: '1.0-SNAPSHOT'
-main: org.avarion.softban.Softban
+name: ${project.name}
+version: '${project.version}'
+main: ${group}.Softban
 api-version: '1.18'
 
 commands:
