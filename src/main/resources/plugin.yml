@@ -1,0 +1,12 @@
+name: ${project.name}
+version: '${project.version}'
+main: ${group}.Softban
+api-version: '1.18'
+
+commands:
+  softban:
+    aliases:
+      - sb
+    description: soft ban someone
+    usage: /softban <set|remove> <playername> [1-5]
+    permission: softban.admin

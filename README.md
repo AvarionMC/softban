@@ -43,6 +43,12 @@ The Softban plugin implements the following punishments based on the softban lev
 1. **Increased Damage Taken**: Players take 10% more damage per softban level.
 2. **Decreased Damage Dealt**: Players deal 10% less damage per softban level.
 3. **Reduced Movement Speed**: Player's velocity is reduced by 10% per softban level.
+4. **Resource Gathering Penalty**: Chance to not drop items when breaking blocks.
+5. **XP Gain Reduction**: Reduces XP gained from activities.
+6. **Hunger Depletion**: Increases the rate of hunger depletion.
+7. **Item Durability Loss**: Increases damage to items when used.
+8. **Inventory Restrictions**: Blocks a number of inventory slots with barrier blocks.
+9. **Night Vision Impairment**: Applies blindness effect when sneaking.
 
 These punishments scale with the softban level, becoming more severe as the level increases.
 
@@ -65,7 +71,6 @@ This will cause Steve to take 30% more damage, deal 30% less damage, and move 30
 ```
    /softban remove Steve
 ```
-
 
 ## Permissions
 
