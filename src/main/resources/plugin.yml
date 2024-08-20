@@ -1,0 +1,11 @@
+name: softban
+version: '1.0-SNAPSHOT'
+main: org.avarion.softban.Softban
+api-version: '1.18'
+
+commands:
+  softban:
+    aliases:
+      - sb
+    description: soft ban someone
+    permission: softban.admin
